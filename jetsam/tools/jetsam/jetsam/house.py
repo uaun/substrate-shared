@@ -2,7 +2,9 @@
 Surfaces). Everything lives under `jetsam/` at the house root:
 
   jetsam/config.json          travels with the house: the framework, its enum file, its release,
-                              the classes this house offers and the route (written by the train)
+                              the classes this house offers and the route (written by the train);
+                              route drop also names the drop point's address (`drop`), and `jitter`
+                              may turn on send-day jitter (J4, routes.py)
   jetsam/outbox/<hash>.json   travels: one packet per framework per epoch, canonical bytes, named
                               by their content hash
   jetsam/sent.jsonl           travels, append-only: hash, day, route, receipt; content never
@@ -30,7 +32,7 @@ from . import SCHEMA, enums as enumfiles
 from . import record as recorder
 
 ROUTES = ("handoff", "drop", "push")
-SENDING = ("drop", "push")          # the routes that send; neither exists before J4 (TODO-196)
+SENDING = ("drop", "push")          # the routes that send (J4, TODO-196); handoff carries the packet instead
 EPOCH_FILE = re.compile(r"^(events|refused|closes)-([0-9]{4}-[0-9]{2})\.jsonl$")
 
 
@@ -214,6 +216,11 @@ def load(root, config: str = "jetsam/config.json") -> House:
         raise HouseError(f"{config} is written for schema {raw['jetsam']}, and this tool writes {SCHEMA}")
     if raw["route"] not in ROUTES:
         raise HouseError(f"{config}: the route {raw['route']!r} is not one of {', '.join(ROUTES)}")
+    if raw["route"] == "drop" and not str(raw.get("drop") or "").startswith(("https://", "http://127.0.0.1", "http://localhost")):
+        raise HouseError(f"{config}: route drop needs `drop`, the drop point's https address, and none is hosted "
+                         "yet (AT.645): use route push or handoff")
+    if "jitter" in raw and not isinstance(raw["jitter"], bool):
+        raise HouseError(f"{config}: `jitter` is true or false")
     if not isinstance(raw["offered"], list) or not all(isinstance(c, str) for c in raw["offered"]):
         raise HouseError(f"{config}: `offered` is not a list of class names")
     opt = lambda k: (root / raw[k]) if raw.get(k) else None  # noqa: E731

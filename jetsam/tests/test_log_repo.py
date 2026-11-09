@@ -1,7 +1,8 @@
 """This repository's own tests, run by tools/check.sh in CI. The Jetsam package's own suite, in its house,
 tests each mechanism; these prove the repository is wired to it: the committed views verify, the tools run
-the whole path on a copy of the repository, the guard refuses what only the ingest writes, and the mirrors
-and the schema load. ROOT is the log's folder (jetsam/ in uaun/substrate-shared)."""
+the whole path on a copy of the repository, the guard refuses what only the ingest and the drop point write,
+the drop point refuses what the ingest would and commits nothing without an identity, and the mirrors and the
+schema load. ROOT is the log's folder (jetsam/ in uaun/substrate-shared)."""
 from __future__ import annotations
 
 import json
@@ -101,3 +102,52 @@ def test_the_mirrors_and_the_schema():
     for f in sorted((ROOT / "enums").glob("*/*/enums.yaml")):
         e = enumfiles.load(f)
         assert e.status == "ratified" and e.framework == f.parts[-3], f
+
+
+def test_a_packet_in_the_drop_folder_is_ingested_as_route_1(tmp_path):
+    repo = copy_repo(tmp_path)
+    raw = red_packet()
+    (repo / "inbox" / "drop").mkdir()          # the drop point's first commit makes the folder
+    (repo / "inbox" / "drop" / jetsam.packet_name(raw)).write_bytes(raw)
+    r = tool(repo, "ingest", "--day", "2026-11-09")
+    assert "ingest: 1 ingested, 0 refused" in r.stdout, r.stdout + r.stderr
+    row = json.loads((repo / "log" / "LEDGER.jsonl").read_text().splitlines()[-1])
+    assert row["route"] == "drop" and list((repo / "inbox" / "drop").iterdir()) == []
+
+
+def test_the_guard_refuses_a_pull_request_into_the_drop_folder(tmp_path):
+    repo = copy_repo(tmp_path)
+    git = ["git", "-C", str(repo), "-c", "user.name=t", "-c", "user.email=t@example.invalid"]
+    subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
+    subprocess.run(git + ["add", "-A"], check=True)
+    subprocess.run(git + ["commit", "-q", "-m", "base"], check=True)
+    raw = red_packet()
+    (repo / "inbox" / "drop").mkdir()
+    (repo / "inbox" / "drop" / jetsam.packet_name(raw)).write_bytes(raw)
+    subprocess.run(git + ["add", "-A"], check=True)
+    subprocess.run(git + ["commit", "-q", "-m", "a packet claiming route 1"], check=True)
+    r = tool(repo, "guard", "HEAD~1")
+    assert r.returncode == 1 and "only the drop point, route 1 (JT.11) writes here" in r.stdout, r.stdout
+
+
+def test_the_drop_point_refuses_what_the_ingest_would_and_commits_nothing_without_an_identity():
+    import io
+    import os
+    from wsgiref.util import setup_testing_defaults
+    sys.path.insert(0, str(ROOT / "tools"))
+    old = os.environ.pop("JETSAM_DROP_TOKEN", None)
+    try:
+        import drop  # tools/drop.py
+        def call(raw):
+            env, out = {}, {}
+            setup_testing_defaults(env)
+            env.update(REQUEST_METHOD="POST", CONTENT_LENGTH=str(len(raw)), **{"wsgi.input": io.BytesIO(raw)})
+            body = b"".join(drop.application(env, lambda s, h: out.setdefault("status", s)))
+            return out["status"], json.loads(body)
+        status, body = call(red_packet().replace(b"auto-15", b"auto-99"))
+        assert status.startswith("422") and body["refused"] == ["ids"]
+        status, body = call(red_packet())
+        assert status.startswith("503") and "identity" in body["error"]
+    finally:
+        if old is not None:
+            os.environ["JETSAM_DROP_TOKEN"] = old
