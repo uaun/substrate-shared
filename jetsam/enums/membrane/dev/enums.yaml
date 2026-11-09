@@ -1,0 +1,637 @@
+{
+ "enums": 1,
+ "framework": "membrane",
+ "status": "ratified",
+ "ratified": "AT.556 (JT.17), 2026-11-08",
+ "measured_at": [
+  {
+   "repo": "substrate-adaptiveux-dev",
+   "commit": "cc20dfeaddbc3f66fdcb8e18efabf99046b71164"
+  },
+  {
+   "repo": "substrate-membrane",
+   "commit": "1055dfe87f1e63ee30c90935b133b8e5763d79ad"
+  }
+ ],
+ "counts": {
+  "funnel": 12,
+  "funnel_mechanism": 7,
+  "refusal": 46,
+  "refusal_mechanism": 26,
+  "red": 41,
+  "budget": 3,
+  "reachability_mechanisms": 36,
+  "reachability_zero": 3
+ },
+ "funnels": [
+  {
+   "id": "offer",
+   "description": "an offer shown to the person, through reveal and acceptance to its executed chain",
+   "scope": "mechanism",
+   "steps": [
+    {
+     "id": "shown",
+     "description": "the offer was shown"
+    },
+    {
+     "id": "revealed",
+     "description": "a quiet card was revealed"
+    },
+    {
+     "id": "accepted",
+     "description": "the offer was accepted"
+    },
+    {
+     "id": "executed",
+     "description": "its chain ran through the journal"
+    }
+   ]
+  },
+  {
+   "id": "ask",
+   "description": "a question shown to the person, through reveal to an answer",
+   "scope": "mechanism",
+   "steps": [
+    {
+     "id": "shown",
+     "description": "the question was shown"
+    },
+    {
+     "id": "revealed",
+     "description": "a quiet card was revealed"
+    },
+    {
+     "id": "answered",
+     "description": "the question was answered"
+    }
+   ]
+  },
+  {
+   "id": "held-offer",
+   "description": "an offer held at a breakpoint until released or expired",
+   "scope": "mechanism",
+   "steps": [
+    {
+     "id": "held",
+     "description": "the offer was held"
+    },
+    {
+     "id": "released",
+     "description": "the held offer was released"
+    }
+   ]
+  },
+  {
+   "id": "partial-acceptance",
+   "description": "a partial acceptance of an offer's chain, through to execution",
+   "scope": "mechanism",
+   "steps": [
+    {
+     "id": "accepted-partial",
+     "description": "part of the chain was accepted"
+    },
+    {
+     "id": "executed",
+     "description": "the kept steps ran"
+    }
+   ]
+  },
+  {
+   "id": "chain",
+   "description": "an executed command chain and its undo",
+   "scope": "mechanism",
+   "steps": [
+    {
+     "id": "executed",
+     "description": "the chain ran"
+    },
+    {
+     "id": "undone",
+     "description": "the chain was undone"
+    }
+   ]
+  },
+  {
+   "id": "pierce-proposal",
+   "description": "a proposal to pierce a suppressing rule, through ratification",
+   "scope": "mechanism",
+   "steps": [
+    {
+     "id": "proposed",
+     "description": "the proposal was made"
+    },
+    {
+     "id": "ratified",
+     "description": "the proposal was ratified"
+    },
+    {
+     "id": "revoked",
+     "description": "its grant was later revoked"
+    }
+   ]
+  },
+  {
+   "id": "session",
+   "description": "a session from its first act to its explicit end, interruptions included",
+   "scope": "mechanism",
+   "steps": [
+    {
+     "id": "hidden",
+     "description": "the page left sight"
+    },
+    {
+     "id": "shown",
+     "description": "the page came back"
+    },
+    {
+     "id": "ended",
+     "description": "the session ended explicitly"
+    }
+   ]
+  },
+  {
+   "id": "turn-end",
+   "description": "the end-of-turn procedure that attests a run and stamps the snapshot",
+   "scope": "house"
+  },
+  {
+   "id": "release-bundle",
+   "description": "building the house's release bundle",
+   "scope": "house"
+  },
+  {
+   "id": "import-bundle",
+   "description": "building the house's import bundle",
+   "scope": "house"
+  },
+  {
+   "id": "house-branch",
+   "description": "a session branch from creation through its ready mark to merge",
+   "scope": "house"
+  },
+  {
+   "id": "atlas-queue-item",
+   "description": "an alignment queue item from filed through started to landed or refused",
+   "scope": "house"
+  }
+ ],
+ "gates": [
+  {
+   "id": "stage.sensing",
+   "description": "a rule withholds a sensed input at the sensing stage",
+   "scope": "mechanism"
+  },
+  {
+   "id": "stage.prediction",
+   "description": "a rule withholds a prediction at the prediction stage",
+   "scope": "mechanism"
+  },
+  {
+   "id": "stage.judgment",
+   "description": "a rule refuses a goal at the judgment stage",
+   "scope": "mechanism"
+  },
+  {
+   "id": "stage.delivery",
+   "description": "a rule suppresses an offer at the delivery stage",
+   "scope": "mechanism"
+  },
+  {
+   "id": "stage.retention",
+   "description": "a rule refuses to record a document at the retention stage",
+   "scope": "mechanism"
+  },
+  {
+   "id": "host.plan-changed",
+   "description": "acceptance refused because the plan changed after it was shown",
+   "scope": "mechanism"
+  },
+  {
+   "id": "host.partial-dependency",
+   "description": "a partial selection refused for keeping a step whose prerequisite was struck",
+   "scope": "mechanism"
+  },
+  {
+   "id": "host.undo-no-compensation",
+   "description": "undo refused because the host declares no compensation",
+   "scope": "mechanism"
+  },
+  {
+   "id": "host.undo-lapsed",
+   "description": "undo refused because the session's compensation has lapsed",
+   "scope": "mechanism"
+  },
+  {
+   "id": "host.rule-at-acceptance",
+   "description": "acceptance refused by a rule standing at commit, and the offer withdrawn",
+   "scope": "mechanism"
+  },
+  {
+   "id": "ask.debounce",
+   "description": "a question withheld because one was asked too recently",
+   "scope": "mechanism"
+  },
+  {
+   "id": "ask.ceiling",
+   "description": "a question withheld because the session's question ceiling is reached",
+   "scope": "mechanism"
+  },
+  {
+   "id": "ask.no-value",
+   "description": "a question withheld because asking is not worth its cost",
+   "scope": "mechanism"
+  },
+  {
+   "id": "ask.would-change-nothing",
+   "description": "a question withheld because the answer would change nothing",
+   "scope": "mechanism"
+  },
+  {
+   "id": "ask.no-channel",
+   "description": "a question withheld because no channel may carry it",
+   "scope": "mechanism"
+  },
+  {
+   "id": "contest.no-such-receipt",
+   "description": "a contest refused because its receipt does not exist",
+   "scope": "mechanism"
+  },
+  {
+   "id": "contest.unknown-kind",
+   "description": "a contest refused because its kind is unknown",
+   "scope": "mechanism"
+  },
+  {
+   "id": "contest.reading-not-on-receipt",
+   "description": "a correction refused because the reading is not on the receipt",
+   "scope": "mechanism"
+  },
+  {
+   "id": "contest.no-rule",
+   "description": "a suppression refused because no rule can be drafted from the receipt",
+   "scope": "mechanism"
+  },
+  {
+   "id": "contest.no-report",
+   "description": "a report refused because it carries nothing to report",
+   "scope": "mechanism"
+  },
+  {
+   "id": "contest.statement-too-long",
+   "description": "a contest refused because its statement is over the length limit",
+   "scope": "mechanism"
+  },
+  {
+   "id": "decoded.act",
+   "description": "a decoded act on an offer's subject is refused as an acceptance",
+   "scope": "mechanism"
+  },
+  {
+   "id": "decoded.needs-another-modality",
+   "description": "a decoded acceptance at the destructive bar is refused and another modality asked for",
+   "scope": "mechanism"
+  },
+  {
+   "id": "decoded.ask",
+   "description": "a decoded signal in the uncertain band asks instead of accepting",
+   "scope": "mechanism"
+  },
+  {
+   "id": "intent.invocation-refused",
+   "description": "an intent invocation that maps to no action is refused by name",
+   "scope": "mechanism"
+  },
+  {
+   "id": "rules.validation-refused",
+   "description": "a rule set that fails validation is refused",
+   "scope": "mechanism"
+  },
+  {
+   "id": "turn-end.hand-typed",
+   "description": "turn end refuses hand-typed run attestations",
+   "scope": "house"
+  },
+  {
+   "id": "turn-end.trash",
+   "description": "turn end refuses wreckage left at the suite root",
+   "scope": "house"
+  },
+  {
+   "id": "turn-end.exit",
+   "description": "turn end refuses a step that did not exit zero",
+   "scope": "house"
+  },
+  {
+   "id": "turn-end.shrink",
+   "description": "turn end refuses a suite that shrank without a stated reason",
+   "scope": "house"
+  },
+  {
+   "id": "turn-end.hash",
+   "description": "turn end refuses a durable copy that differs from the working tree",
+   "scope": "house"
+  },
+  {
+   "id": "turn-end.readme",
+   "description": "turn end refuses a release bundle that lacks its orientation readme",
+   "scope": "house"
+  },
+  {
+   "id": "turn-end.baseline",
+   "description": "turn end refuses a regeneration that moved a committed baseline",
+   "scope": "house"
+  },
+  {
+   "id": "turn-end.dev-checkout",
+   "description": "turn end refuses a checkout the turn cannot end in",
+   "scope": "house"
+  },
+  {
+   "id": "turn-end.commit-text",
+   "description": "turn end refuses commit text that names a banned term",
+   "scope": "house"
+  },
+  {
+   "id": "branch.published-text",
+   "description": "a merge refuses pull request text that names a banned term",
+   "scope": "house"
+  },
+  {
+   "id": "branch.merge-gate",
+   "description": "a merge refuses a branch not marked ready",
+   "scope": "house"
+  },
+  {
+   "id": "branch.new-refused",
+   "description": "a new branch is refused for a malformed name or a push refused after a recount",
+   "scope": "house"
+  },
+  {
+   "id": "branch.log-created-refused",
+   "description": "a creation line is refused off its branch or when one already exists",
+   "scope": "house"
+  },
+  {
+   "id": "branch.ready-refused",
+   "description": "a ready mark is refused off a session branch, with uncommitted work, or ahead of the remote",
+   "scope": "house"
+  },
+  {
+   "id": "branch.merge-conflict",
+   "description": "a merge is refused for a conflict with main",
+   "scope": "house"
+  },
+  {
+   "id": "branch.merge-unjudged",
+   "description": "a merge is refused while the hosting service has not judged mergeability",
+   "scope": "house"
+  },
+  {
+   "id": "branch.merge-head-moved",
+   "description": "a merge is refused when the head moved from the tip shown",
+   "scope": "house"
+  },
+  {
+   "id": "branch.merge-missing",
+   "description": "a merge is refused for a branch that is not on the remote",
+   "scope": "house"
+  },
+  {
+   "id": "branch.tool-error",
+   "description": "a branch command is refused when version control or its log cannot be read",
+   "scope": "house"
+  },
+  {
+   "id": "queue.refusal-needs-reason",
+   "description": "a queue item marked refused without a reason is refused",
+   "scope": "house"
+  }
+ ],
+ "checks": [
+  {
+   "id": "ci.check-boundaries",
+   "description": "the import and boundary rules hold",
+   "scope": "house"
+  },
+  {
+   "id": "ci.check-capabilities",
+   "description": "the capability manifest is current",
+   "scope": "house"
+  },
+  {
+   "id": "ci.check-attribution",
+   "description": "nothing in the house names a registered term",
+   "scope": "house"
+  },
+  {
+   "id": "ci.check-snapshot",
+   "description": "the snapshot describes this tree",
+   "scope": "house"
+  },
+  {
+   "id": "ci.check-reviews",
+   "description": "standing reviews are on schedule",
+   "scope": "house"
+  },
+  {
+   "id": "ci.check-judgments",
+   "description": "declared judgments match the code",
+   "scope": "house"
+  },
+  {
+   "id": "ci.check-commit-messages",
+   "description": "every commit's message and identity meet the house rule",
+   "scope": "house"
+  },
+  {
+   "id": "ci.check-input-inventory",
+   "description": "the input-handling inventory is current",
+   "scope": "house"
+  },
+  {
+   "id": "ci.check-defect-log",
+   "description": "every defect sits under its own letter",
+   "scope": "house"
+  },
+  {
+   "id": "ci.check-test-returns",
+   "description": "no test skips its own assertions in silence",
+   "scope": "house"
+  },
+  {
+   "id": "ci.lint",
+   "description": "the lint pass is clean",
+   "scope": "house"
+  },
+  {
+   "id": "ci.format-check",
+   "description": "the formatting check is clean",
+   "scope": "house"
+  },
+  {
+   "id": "ci.typecheck",
+   "description": "the type check is clean",
+   "scope": "house"
+  },
+  {
+   "id": "ci.test",
+   "description": "the test suite passes",
+   "scope": "house"
+  },
+  {
+   "id": "ci.check-suite-floor",
+   "description": "the suite has not shrunk silently",
+   "scope": "house"
+  },
+  {
+   "id": "ci.build",
+   "description": "the build succeeds",
+   "scope": "house"
+  },
+  {
+   "id": "ci.build-single",
+   "description": "the single-file build succeeds",
+   "scope": "house"
+  },
+  {
+   "id": "ci.check-singlefile",
+   "description": "the single-file build is what it claims to be",
+   "scope": "house"
+  },
+  {
+   "id": "ci.check-reproducible",
+   "description": "two builds from one tree are the same bytes",
+   "scope": "house"
+  },
+  {
+   "id": "ci.agents-smoke",
+   "description": "the agent smoke run can fail and passes",
+   "scope": "house"
+  },
+  {
+   "id": "ci.reports",
+   "description": "the report printers run and render",
+   "scope": "house"
+  },
+  {
+   "id": "ci.check-reachability",
+   "description": "the reachability report describes this tree",
+   "scope": "house"
+  },
+  {
+   "id": "check.rules-check",
+   "description": "a rules file validates from the command line",
+   "scope": "house"
+  },
+  {
+   "id": "check.gatecheck",
+   "description": "every gate can still fail under its sabotage",
+   "scope": "house"
+  },
+  {
+   "id": "check.check-study-numbers",
+   "description": "the study protocol's numbers are current",
+   "scope": "house"
+  },
+  {
+   "id": "check.check-writeup",
+   "description": "every write-up figure comes from a committed artifact",
+   "scope": "house"
+  },
+  {
+   "id": "check.check-decisions",
+   "description": "the decisions register reads consistently against itself",
+   "scope": "house"
+  },
+  {
+   "id": "check.check-baselines",
+   "description": "regenerated baselines match the committed ones",
+   "scope": "house"
+  },
+  {
+   "id": "check.check-index",
+   "description": "the documentation index describes the documentation",
+   "scope": "house"
+  },
+  {
+   "id": "check.check-cue-vocabulary",
+   "description": "the cue vocabulary document is current",
+   "scope": "house"
+  },
+  {
+   "id": "check.check-substrate",
+   "description": "the house's pins match its inherited ruleset register",
+   "scope": "house"
+  },
+  {
+   "id": "check.check-house",
+   "description": "the house's concurrency guards hold over a checkout",
+   "scope": "house"
+  },
+  {
+   "id": "check.check-branch-messages",
+   "description": "the branch's messages carry no registered term before a push",
+   "scope": "house"
+  },
+  {
+   "id": "ci.schemas-current",
+   "description": "the generated schemas are current",
+   "scope": "house"
+  },
+  {
+   "id": "ci.baseline-current",
+   "description": "the reward baseline is current",
+   "scope": "house"
+  },
+  {
+   "id": "ci.intents-current",
+   "description": "the intent mapping is current",
+   "scope": "house"
+  },
+  {
+   "id": "ci.support-current",
+   "description": "the support matrix matches its evidence",
+   "scope": "house"
+  },
+  {
+   "id": "ci.browser-boot",
+   "description": "the built page boots in a real browser",
+   "scope": "house"
+  },
+  {
+   "id": "check.guards",
+   "description": "the concurrency guards over the creation and reply logs hold",
+   "scope": "house"
+  },
+  {
+   "id": "check.queue",
+   "description": "the alignment queue's state file is well formed",
+   "scope": "house"
+  },
+  {
+   "id": "check.unittest",
+   "description": "the house's unit tests pass",
+   "scope": "house"
+  }
+ ],
+ "tools": [
+  {
+   "id": "ask-ceiling",
+   "description": "the most questions a session may ask",
+   "wall": "ceiling",
+   "scope": "mechanism"
+  },
+  {
+   "id": "learned-proposals-open",
+   "description": "the most learned rule proposals offered at once",
+   "wall": "ceiling",
+   "scope": "mechanism"
+  },
+  {
+   "id": "pierce-proposals-open",
+   "description": "the most pierce proposals open at once",
+   "wall": "ceiling",
+   "scope": "mechanism"
+  }
+ ]
+}

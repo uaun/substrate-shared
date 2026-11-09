@@ -1,0 +1,46 @@
+name: jetsam ingest
+
+# The only write path to Substrate Jetsam's jetsam/log/ (JT.8): when a packet lands in jetsam/inbox/ on main,
+# ingest it, rebuild the views, verify, and commit under the GitHub Actions identity. main's ruleset must list
+# GitHub Actions as a bypass actor for this push. A push made with this workflow's token starts no other
+# workflow, so the verify step here is what checks the commit it makes.
+on:
+  push:
+    branches: [main]
+    paths: ["jetsam/inbox/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jetsam-ingest
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: jetsam
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: ingest, aggregate, verify
+        id: run
+        run: |
+          python3 -I -B tools/ingest.py --route push | tee ../ingest.out
+          python3 -I -B tools/aggregate.py
+          python3 -I -B tools/verify.py
+          echo "summary=jetsam $(tail -n 1 ../ingest.out)" >> "$GITHUB_OUTPUT"
+          rm ../ingest.out
+      - name: commit under the Actions identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A inbox log views
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          git commit -q -m "${{ steps.run.outputs.summary }}"
+          git push

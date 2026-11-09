@@ -1,0 +1,1102 @@
+{
+ "enums": 1,
+ "framework": "soul",
+ "status": "ratified",
+ "ratified": "AT.556 (JT.17), 2026-11-08",
+ "measured_at": {
+  "repo": "substrate-soul-dev",
+  "commit": "5b408eb7d1f1f9988552eab68fea6f19f3e9ae42"
+ },
+ "counts": {
+  "funnel": 31,
+  "refusal": 48,
+  "red": 29,
+  "budget": 112,
+  "budget_ceiling_registers": 4
+ },
+ "excluded_by_category": {
+  "budget_entries_naming_a_validation_set": 3
+ },
+ "funnels": [
+  {
+   "id": "install",
+   "description": "the drop-in install that seeds a project with the framework"
+  },
+  {
+   "id": "install-auto",
+   "description": "the unattended install after the arrival card's one question",
+   "steps": [
+    {
+     "id": "answered-yes",
+     "description": "the person answered yes and the install wrote its listed lines"
+    },
+    {
+     "id": "show-first",
+     "description": "the person asked to see the lines before any write"
+    },
+    {
+     "id": "not-now",
+     "description": "the person declined and nothing ran"
+    }
+   ]
+  },
+  {
+   "id": "arrival",
+   "description": "the consented arrival check that measures a payload and its host and routes the install"
+  },
+  {
+   "id": "install-manual-steps",
+   "description": "the manual steps an install still owes after the installer ran",
+   "steps": [
+    {
+     "id": "config",
+     "description": "fill in the framework configuration and re-run the installer"
+    },
+    {
+     "id": "protocol-host",
+     "description": "create the protocol host document"
+    },
+    {
+     "id": "worldview",
+     "description": "tailor the seeded worldview document"
+    },
+    {
+     "id": "protocol-block",
+     "description": "review the seeded protocol block"
+    },
+    {
+     "id": "inherited-scan",
+     "description": "swap the values the inherited-consumer scan named"
+    },
+    {
+     "id": "first-verify",
+     "description": "run the seeded verify runner"
+    },
+    {
+     "id": "recall",
+     "description": "tailor the project's validation question set"
+    },
+    {
+     "id": "collection-root",
+     "description": "name the framework tests as a collection root"
+    },
+    {
+     "id": "prompt-slots",
+     "description": "fill the slots in both seeded prompts"
+    },
+    {
+     "id": "opt-ins",
+     "description": "decide the two shipped opt-ins"
+    },
+    {
+     "id": "precompact-hook",
+     "description": "decide the compaction hook opt-in"
+    },
+    {
+     "id": "delivery",
+     "description": "move the tree somewhere that survives the session"
+    },
+    {
+     "id": "act-gate",
+     "description": "decide the act gate opt-in"
+    }
+   ]
+  },
+  {
+   "id": "birth-merge",
+   "description": "merging a newly installed framework into a project that already has history"
+  },
+  {
+   "id": "birth-extract",
+   "description": "the directed sweep of a host's working memory during a birth merge"
+  },
+  {
+   "id": "boot",
+   "description": "a fresh session's ordered boot script, ending in a boot verdict"
+  },
+  {
+   "id": "restore",
+   "description": "preparing the resume packet a new session restores from"
+  },
+  {
+   "id": "recitation",
+   "description": "the mechanized recitation run on a checkpoint or after a context boundary"
+  },
+  {
+   "id": "close",
+   "description": "the mechanized healthy closeout"
+  },
+  {
+   "id": "handoff",
+   "description": "the one-command handoff to a fresh session"
+  },
+  {
+   "id": "handoff-offer",
+   "description": "the three-option handoff choice put to the operator",
+   "steps": [
+    {
+     "id": "hand-off",
+     "description": "hand off to a fresh session"
+    },
+    {
+     "id": "keep-working",
+     "description": "keep working in this session"
+    },
+    {
+     "id": "finish-first",
+     "description": "list what to finish here before handing off"
+    }
+   ]
+  },
+  {
+   "id": "quick-handoff",
+   "description": "the quick-handoff mode's continuous work and handoff on degradation"
+  },
+  {
+   "id": "sync",
+   "description": "the mirror and transfer-artifact sync"
+  },
+  {
+   "id": "compaction-fold",
+   "description": "making a compaction boundary durable and folding the state it owes"
+  },
+  {
+   "id": "soul-checkpoint",
+   "description": "the full checkpoint path forced by the operator's phrase, doubling as a fire drill"
+  },
+  {
+   "id": "degraded-path",
+   "description": "the degraded session's path: verify anchors, write the quarantine entry, sync, report"
+  },
+  {
+   "id": "quarantine-triage",
+   "description": "a later session's triage of an open quarantine document"
+  },
+  {
+   "id": "recall-validation",
+   "description": "the operator-run, graded restoration validation, which may be waived"
+  },
+  {
+   "id": "recall-refresh",
+   "description": "the offer at a checkpoint's end to re-derive the project's validation questions"
+  },
+  {
+   "id": "upgrade",
+   "description": "migrating a consumer to a new framework version"
+  },
+  {
+   "id": "create-upgrade",
+   "description": "producing the upgrade artifact from a release"
+  },
+  {
+   "id": "release-build",
+   "description": "building, reviewing, accepting and recording a framework release"
+  },
+  {
+   "id": "rebirth",
+   "description": "the cold-start restore test from the transfer artifact alone"
+  },
+  {
+   "id": "estate-harvest",
+   "description": "harvesting what the outgoing session holds before it ends"
+  },
+  {
+   "id": "estate-ingest",
+   "description": "the successor session receiving a predecessor's estate"
+  },
+  {
+   "id": "survey",
+   "description": "the survey card offered at boot or close and the module item picked from it"
+  },
+  {
+   "id": "essence-ask",
+   "description": "asking what a session holds that the record does not"
+  },
+  {
+   "id": "post-build-actions",
+   "description": "the optional post-build actions offered when the soul version increments"
+  },
+  {
+   "id": "review-refresh-debt",
+   "description": "re-deriving the framework review set or recording why not"
+  },
+  {
+   "id": "gap-ruling",
+   "description": "the operator's confirm-or-reject ruling on a boot-time gap row"
+  }
+ ],
+ "gates": [
+  {
+   "id": "arrival.refused",
+   "description": "the arrival check refuses to read a payload without consent"
+  },
+  {
+   "id": "blind-append.refused",
+   "description": "the blind correction writer refuses a malformed correction and writes nothing"
+  },
+  {
+   "id": "boot-grant.refused",
+   "description": "the boot verdict refuses a session the grant to work when a measured precondition fails"
+  },
+  {
+   "id": "boot-sweep.asksheet-refused",
+   "description": "the boot sweep refuses to generate the question sheet in a subject's boot path"
+  },
+  {
+   "id": "changelog-move.refused",
+   "description": "the change-log archive move refuses a move it cannot make safely"
+  },
+  {
+   "id": "cli-guard.refused",
+   "description": "a framework tool refuses an argument it does not understand or a run as a command it does not support"
+  },
+  {
+   "id": "close-gate.refused",
+   "description": "the close refuses while an automatic context boundary in its own session is unrecited"
+  },
+  {
+   "id": "close-measure.refused",
+   "description": "the close refuses when a scoped run or verify reddened and the whole measurement is owed"
+  },
+  {
+   "id": "estate-ingest.refused",
+   "description": "the estate ingest refuses while a precondition is unmet"
+  },
+  {
+   "id": "fresh-install.refused",
+   "description": "the fresh-install builder refuses an output inside the tree, a non-empty folder or a non-shipping tree"
+  },
+  {
+   "id": "install-auto.refused",
+   "description": "the unattended install refuses and writes nothing"
+  },
+  {
+   "id": "install-bundle.refused",
+   "description": "the install bundle builder refuses an output inside the framework folder"
+  },
+  {
+   "id": "install-mode.refused",
+   "description": "a reserved install mode value is refused until it is built"
+  },
+  {
+   "id": "ledger-draft.refused",
+   "description": "a ledger entry draft still holding placeholders is refused"
+  },
+  {
+   "id": "ledger-spill.refused",
+   "description": "the ledger spill refuses to move the newest live entry or a malformed one"
+  },
+  {
+   "id": "manual-status.refused",
+   "description": "an install manual step whose named host is missing is marked refused"
+  },
+  {
+   "id": "manual-steps.refused",
+   "description": "an install manual step the tree sees refused is recorded as refused"
+  },
+  {
+   "id": "merge-report.refused",
+   "description": "the merge report refuses to stand as canon when it found nothing"
+  },
+  {
+   "id": "mirror-origin.refused",
+   "description": "the sync refuses a mirror that belongs to another tree"
+  },
+  {
+   "id": "mutation-receipt.refused",
+   "description": "the boot change snapshot refuses to write inside the tree it measures"
+  },
+  {
+   "id": "quick-handoff.refused",
+   "description": "the quick handoff refuses when the install mode or its entry does not allow it"
+  },
+  {
+   "id": "release-accept.refused",
+   "description": "a release acceptance is refused until every install route has installed it"
+  },
+  {
+   "id": "release-build.refused",
+   "description": "the release build refuses while a precondition or gate finding stands"
+  },
+  {
+   "id": "release-ready.refused",
+   "description": "an unmet release precondition refuses the build and names its remedy"
+  },
+  {
+   "id": "release-record.refused",
+   "description": "the release record refuses an acceptance without words or a withdrawal without a reason"
+  },
+  {
+   "id": "release-review.refused",
+   "description": "the release review refuses an archive that is not a recorded release"
+  },
+  {
+   "id": "res-footprint.refused",
+   "description": "the resident footprint comparison refuses unlike or unknown cache states"
+  },
+  {
+   "id": "sealed.refused",
+   "description": "the seal guard refuses a read of a sealed instrument"
+  },
+  {
+   "id": "setup-gate.refused",
+   "description": "the installer's setup gate refuses an install before its first data write"
+  },
+  {
+   "id": "asksheet.refused",
+   "description": "the question-sheet generator refuses a run with no output or an output inside the project"
+  },
+  {
+   "id": "events-outbox.refused",
+   "description": "the event outbox refuses an event that is not content-free"
+  },
+  {
+   "id": "ledger-prepend.refused",
+   "description": "the ledger prepend helper refuses an entry it cannot place"
+  },
+  {
+   "id": "recite.refused-call",
+   "description": "the recitation refuses a malformed call"
+  },
+  {
+   "id": "upgrade.refused",
+   "description": "the framework upgrade refuses while a failed attempt's tree remains or the installer refused"
+  },
+  {
+   "id": "spawn-depth.refused",
+   "description": "an install that would nest a consumer past the allowed depth is refused"
+  },
+  {
+   "id": "spill-select.refused",
+   "description": "the spill selection refuses a selection with no countable block"
+  },
+  {
+   "id": "surface-profile.refused",
+   "description": "a surface profile naming no absolute witness is refused"
+  },
+  {
+   "id": "survey-claim.refused",
+   "description": "a survey claim, renewal or end the record does not allow is refused"
+  },
+  {
+   "id": "act-gate.r1",
+   "description": "the act gate denies a read of a sealed instrument"
+  },
+  {
+   "id": "act-gate.r2",
+   "description": "the act gate denies authorship under an open quarantine entry"
+  },
+  {
+   "id": "act-gate.r3",
+   "description": "the act gate denies a memory write carrying data-folder contents"
+  },
+  {
+   "id": "act-gate.r4",
+   "description": "the act gate asks, or denies, an act that outlives the session"
+  },
+  {
+   "id": "act-gate.r5",
+   "description": "the act gate denies a write to its own files"
+  },
+  {
+   "id": "act-gate.error",
+   "description": "the act gate denies when it cannot read its input"
+  },
+  {
+   "id": "release-gate.refused",
+   "description": "the release gate refuses an archive carrying a personal fact or failing its hygiene audit"
+  },
+  {
+   "id": "create-upgrade.refused",
+   "description": "the upgrade artifact is not created when its release refuses"
+  },
+  {
+   "id": "mode-switch.harness-refused",
+   "description": "a harness refusal at boot is named and retried once in manual mode"
+  },
+  {
+   "id": "pre-commit.blocked",
+   "description": "the seeded pre-commit hook blocks a commit when fast verify fails"
+  }
+ ],
+ "checks": [
+  {
+   "id": "auto-13",
+   "description": "the handoff's register versions line agrees with the tree"
+  },
+  {
+   "id": "auto-15",
+   "description": "framework files carry no consumer facts beyond the coupling budget"
+  },
+  {
+   "id": "auto-16",
+   "description": "the tree holds exactly one operation-eligible framework root"
+  },
+  {
+   "id": "auto-18",
+   "description": "the events document's entries are well formed when it exists"
+  },
+  {
+   "id": "auto-20",
+   "description": "the data folder holds only declared names"
+  },
+  {
+   "id": "auto-21",
+   "description": "the consumer's wiring registers every shipped check, shim and contract"
+  },
+  {
+   "id": "auto-22",
+   "description": "the framework folder is internally consistent, budgets and inventory included"
+  },
+  {
+   "id": "auto-23",
+   "description": "the live protocol block has not drifted from its seeded template"
+  },
+  {
+   "id": "auto-25",
+   "description": "backlog owner tags are well formed"
+  },
+  {
+   "id": "auto-26",
+   "description": "the per-boot read set stays under its total token ceiling"
+  },
+  {
+   "id": "auto-27",
+   "description": "a consumer's own version count is honoured from zero"
+  },
+  {
+   "id": "auto-28",
+   "description": "every budget above its baseline carries a recorded raise, and declared couplings are actionable"
+  },
+  {
+   "id": "auto-29",
+   "description": "a boot-time state mismatch with no quarantine document is named at boot"
+  },
+  {
+   "id": "auto-30",
+   "description": "every soul version cited in prose was minted"
+  },
+  {
+   "id": "auto-32",
+   "description": "the soul's spill chain is intact at its pointer"
+  },
+  {
+   "id": "auto-33",
+   "description": "a register row naming a filed report finds that report"
+  },
+  {
+   "id": "auto-34",
+   "description": "a precondition that has lifted is announced"
+  },
+  {
+   "id": "auto-35",
+   "description": "prompts point at canon instead of restating it"
+  },
+  {
+   "id": "auto-36",
+   "description": "the register's certifiability fields are present and read"
+  },
+  {
+   "id": "auto-37",
+   "description": "the recitation was the first act after a context boundary"
+  },
+  {
+   "id": "auto-38",
+   "description": "the tree's lineage and preservation claims are recorded"
+  },
+  {
+   "id": "auto-39",
+   "description": "an installed prompt carries no unfilled slots"
+  },
+  {
+   "id": "auto-40",
+   "description": "a doctrine entry names its earning incident"
+  },
+  {
+   "id": "auto-41",
+   "description": "an archive pointer is true in both directions"
+  },
+  {
+   "id": "auto-42",
+   "description": "the per-reply turn index agrees with its recorded past"
+  },
+  {
+   "id": "auto-43",
+   "description": "the consumer root holds every seed the framework ships"
+  },
+  {
+   "id": "auto-44",
+   "description": "unfiled findings since a declared stamp are counted"
+  },
+  {
+   "id": "auto-19",
+   "description": "the seeded drift gates keep shims and seeds byte-identical to the framework's copies"
+  },
+  {
+   "id": "framework-suite",
+   "description": "the framework's own test suite, run by quarters"
+  }
+ ],
+ "tools": [
+  {
+   "id": "doc.about",
+   "description": "line ceiling on the framework's about document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.birth-extract",
+   "description": "line ceiling on the framework's birth extract document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.birth-merge",
+   "description": "line ceiling on the framework's birth merge document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.changelog",
+   "description": "line ceiling on the framework's changelog register",
+   "wall": "ceiling"
+  },
+  {
+   "id": "doc.contract",
+   "description": "line ceiling on the framework's contract document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.contribution-concept",
+   "description": "line ceiling on the framework's contribution concept document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.developers",
+   "description": "line ceiling on the framework's developers document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.engineering",
+   "description": "line ceiling on the framework's engineering document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.essence",
+   "description": "line ceiling on the framework's essence document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.filing",
+   "description": "line ceiling on the framework's filing document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.handoff-prompt",
+   "description": "line ceiling on the consumer's handoff prompt document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.harness",
+   "description": "line ceiling on the framework's harness document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.inner-harness",
+   "description": "line ceiling on the framework's inner harness document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.install",
+   "description": "line ceiling on the framework's install document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.install-addendum",
+   "description": "line ceiling on the consumer's install addendum document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.install-prompt",
+   "description": "line ceiling on the framework's install prompt document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.optimization",
+   "description": "line ceiling on the framework's optimization document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.prompt-craft",
+   "description": "line ceiling on the framework's prompt craft document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.quarantine",
+   "description": "line ceiling on the framework's quarantine document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.questions",
+   "description": "line ceiling on the framework's questions document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.quickstart",
+   "description": "line ceiling on the consumer's quickstart document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.readme",
+   "description": "line ceiling on the framework's readme document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.rebirth",
+   "description": "line ceiling on the framework's rebirth document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.rebirth-prompt",
+   "description": "line ceiling on the consumer's rebirth prompt document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.recursion-safety",
+   "description": "line ceiling on the framework's recursion safety document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.session-craft",
+   "description": "line ceiling on the framework's session craft document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.soulagent",
+   "description": "line ceiling on the framework's soulagent document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.soulapi",
+   "description": "line ceiling on the framework's soulapi document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.terminal-craft",
+   "description": "line ceiling on the framework's terminal craft document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.todo",
+   "description": "line ceiling on the framework's todo register",
+   "wall": "ceiling"
+  },
+  {
+   "id": "doc.tools",
+   "description": "line ceiling on the framework's tools document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.upgrade",
+   "description": "line ceiling on the framework's upgrade document",
+   "wall": "line"
+  },
+  {
+   "id": "doc.user-manual",
+   "description": "line ceiling on the framework's user manual document",
+   "wall": "line"
+  },
+  {
+   "id": "tool.act-gate",
+   "description": "line ceiling on the framework's act gate tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.archive-manifest",
+   "description": "line ceiling on the framework's archive manifest tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.artifact-pack",
+   "description": "line ceiling on the framework's artifact pack tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.backlog-grammar",
+   "description": "line ceiling on the framework's backlog grammar tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.birth-merge",
+   "description": "line ceiling on the framework's birth merge tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.block-claims",
+   "description": "line ceiling on the framework's block claims tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.block-compose",
+   "description": "line ceiling on the framework's block compose tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.block-drift",
+   "description": "line ceiling on the framework's block drift tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.block-spill",
+   "description": "line ceiling on the framework's block spill tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.boot-claims",
+   "description": "line ceiling on the framework's boot claims tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.boot-grant",
+   "description": "line ceiling on the framework's boot grant tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.boot-sweep",
+   "description": "line ceiling on the framework's boot sweep tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.change-reach",
+   "description": "line ceiling on the framework's change reach tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.cli-guard",
+   "description": "line ceiling on the framework's cli guard tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.close-report",
+   "description": "line ceiling on the framework's close report tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.consumer-facts",
+   "description": "line ceiling on the framework's consumer facts tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.contract-check",
+   "description": "line ceiling on the framework's contract check tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.coupling-check",
+   "description": "line ceiling on the framework's coupling check tool source",
+   "wall": "coupling"
+  },
+  {
+   "id": "tool.data-inventory",
+   "description": "line ceiling on the framework's data inventory tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.estate-ingest",
+   "description": "line ceiling on the framework's estate ingest tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.fence-driver",
+   "description": "line ceiling on the framework's fence driver tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.framework-budgets",
+   "description": "line ceiling on the framework's framework budgets tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.framework-check",
+   "description": "line ceiling on the framework's framework check tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.gap-attribution",
+   "description": "line ceiling on the framework's gap attribution tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.handoff-now",
+   "description": "line ceiling on the framework's handoff now tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.house-record",
+   "description": "line ceiling on the framework's house record tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.install",
+   "description": "line ceiling on the framework's install tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.install-bundle",
+   "description": "line ceiling on the framework's install bundle tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.install-residue",
+   "description": "line ceiling on the framework's install residue tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.lineage",
+   "description": "line ceiling on the framework's lineage tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.manual-status",
+   "description": "line ceiling on the framework's manual status tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.manual-steps",
+   "description": "line ceiling on the framework's manual steps tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.merge-yield",
+   "description": "line ceiling on the framework's merge yield tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.mirror-shape",
+   "description": "line ceiling on the framework's mirror shape tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.mutation-receipt",
+   "description": "line ceiling on the framework's mutation receipt tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.optimisation-sweep",
+   "description": "line ceiling on the framework's optimisation sweep tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.pin-census",
+   "description": "line ceiling on the framework's pin census tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.portability-report",
+   "description": "line ceiling on the framework's portability report tool source",
+   "wall": "coupling"
+  },
+  {
+   "id": "tool.precompact-marker",
+   "description": "line ceiling on the framework's precompact marker tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.precompact-snapshot",
+   "description": "line ceiling on the framework's precompact snapshot tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.premise",
+   "description": "line ceiling on the framework's premise tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.prompt-refs",
+   "description": "line ceiling on the framework's prompt refs tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.prompt-registry",
+   "description": "line ceiling on the framework's prompt registry tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.prompt-slots",
+   "description": "line ceiling on the framework's prompt slots tool source",
+   "wall": "coupling"
+  },
+  {
+   "id": "tool.recite-anchors",
+   "description": "line ceiling on the framework's recite anchors tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.recite-order",
+   "description": "line ceiling on the framework's recite order tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.ref-resolve",
+   "description": "line ceiling on the framework's ref resolve tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.register-fields",
+   "description": "line ceiling on the framework's register fields tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.report-carry",
+   "description": "line ceiling on the framework's report carry tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.res-footprint",
+   "description": "line ceiling on the framework's res footprint tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.sealed",
+   "description": "line ceiling on the framework's sealed tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.seat-numbers",
+   "description": "line ceiling on the framework's seat numbers tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.setup-lifecycle",
+   "description": "line ceiling on the framework's setup lifecycle tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.soul-close",
+   "description": "line ceiling on the framework's soul close tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.soul-config",
+   "description": "line ceiling on the framework's soul config tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.soul-head",
+   "description": "line ceiling on the framework's soul head tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.soul-ledger",
+   "description": "line ceiling on the framework's soul ledger tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.soul-recite",
+   "description": "line ceiling on the framework's soul recite tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.soul-restore",
+   "description": "line ceiling on the framework's soul restore tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.soul-review-gate",
+   "description": "line ceiling on the framework's soul review gate tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.soul-stats",
+   "description": "line ceiling on the framework's soul stats tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.soul-status",
+   "description": "line ceiling on the framework's soul status tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.soul-touched",
+   "description": "line ceiling on the framework's soul touched tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.soul-upgrade",
+   "description": "line ceiling on the framework's soul upgrade tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.spill",
+   "description": "line ceiling on the framework's spill tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.spill-select",
+   "description": "line ceiling on the framework's spill select tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.suite-paths",
+   "description": "line ceiling on the framework's suite paths tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.sync-mirror",
+   "description": "line ceiling on the framework's sync mirror tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.verify-core",
+   "description": "line ceiling on the framework's verify core tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.version-claims",
+   "description": "line ceiling on the framework's version claims tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.wiring-check",
+   "description": "line ceiling on the framework's wiring check tool source",
+   "wall": "line"
+  },
+  {
+   "id": "tool.work-available",
+   "description": "line ceiling on the framework's work available tool source",
+   "wall": "line"
+  },
+  {
+   "id": "budget.protocol-block",
+   "description": "line ceiling on the protocol block paid every turn",
+   "wall": "line"
+  },
+  {
+   "id": "budget.boot-total",
+   "description": "token ceiling on everything a boot reads",
+   "wall": "ceiling"
+  },
+  {
+   "id": "budget.digest-cap",
+   "description": "stub ceiling on the change-log digest",
+   "wall": "ceiling"
+  },
+  {
+   "id": "budget.core-spill",
+   "description": "line count at which the soul core's change log spills to its archive",
+   "wall": "ceiling"
+  },
+  {
+   "id": "budget.paste-limit",
+   "description": "character ceiling on a pasted prompt",
+   "wall": "ceiling"
+  },
+  {
+   "id": "budget.tool-default",
+   "description": "shared line ceiling on any framework tool without its own entry",
+   "wall": "line"
+  },
+  {
+   "id": "budget.doc-default",
+   "description": "shared line ceiling on any framework document without its own entry",
+   "wall": "line"
+  }
+ ]
+}

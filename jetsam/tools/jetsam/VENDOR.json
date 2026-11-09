@@ -1,0 +1,23 @@
+{
+ "commit": "fd31953311a6f410a35b473845dfd58dbf86855e",
+ "enums_from": null,
+ "files": {
+  "jetsam/__init__.py": "0320eb54c5773b276b8ee6afcf76e5ca734ea99488ab3e0d6a47442a6ce50e0b",
+  "jetsam/__main__.py": "4ee5d81022a92c75cd6d904c487608723fb8c54f95598a2baf4bc18520efda43",
+  "jetsam/attribution.py": "63ecad5c6e2bca7ce86d4116d6c9ff8c5bc57c0d7d5eea4f47ab69b5ea0c2fd1",
+  "jetsam/canonical.py": "71cfb61d6ab9ec4cd60e9180ca0c73c1297139c3642355b522e40854a86313f8",
+  "jetsam/digest.py": "42f5945ccfa415f7773d901d0a7c507ad9b6d2853ded620baaef709d8ed1e152",
+  "jetsam/enums.py": "cff49923b91d838c1208c1c4b8fb18e10f6015ba9b6e11b26e6fdeeba02a0cbe",
+  "jetsam/house.py": "095c5aece46413376a545e727e36a05210c70ac927742fa92d8927b743bd06e8",
+  "jetsam/log.py": "433f62a5f2ade06ef577d10249f0e2860ab7447a6c2bd111b29f2ffa6faf82f9",
+  "jetsam/record.py": "036f4d89bb49c5a50a2ee984332192f0f7c80097b034b882ea532b17d3654306",
+  "jetsam/scrub.py": "864a7c57d224f055c03c9dde12b1163d42bba20f7d7cb7454d246ef66aa86a9c",
+  "jetsam/validate.py": "e361f4386edae4b9e12520f4b5de556d35b5ba263608ead17a6536d6bf7ba16c",
+  "jetsam/vendor.py": "7686987295a1f2c5542e0c8b9843cd9b2077a9846d63ff73e0a67b658be81219",
+  "record.mjs": "d4f37e4daa501db2611161d3be0860cc5cd4b1b0bac1e60aec9e78b01049ea5e",
+  "run.py": "60d17c939f4ecb573a6e84b2a82a6579e7503b585e6171eefe4f3fcebadd1d9f",
+  "schema/1.0.json": "8bd9fec490b396d110cd0898d2273788ca555d603d876f65080d7987e600951a"
+ },
+ "framework": null,
+ "vendored_from": "uaun/substrate-jetsam"
+}

@@ -1,0 +1,9 @@
+{
+ "about": "The never-store content patterns the ingest's text check holds a suggestion against, copied from the atlas's charter/never-store.yaml (uaun/substrate-atlas). The attribution digests are not published here; the house's scrubber held the text against them before it was sent.",
+ "content": [
+  "-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----",
+  "(?i)aws_secret_access_key\\s*=",
+  "(?i)ghp_[A-Za-z0-9]{30,}",
+  "(?i)sk-[A-Za-z0-9]{20,}"
+ ]
+}
