@@ -1,0 +1,2 @@
+# Append-only logs merge line-wise; tools/check.sh refuses duplicate ids
+ops/*.jsonl merge=union
