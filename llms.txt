@@ -1,0 +1,54 @@
+# Substrate
+
+> A family of frameworks for continuity, memory and trust around AI minds and the people they work with. Each framework is a house: its own repository, bound by one inherited ruleset, opening to contributors house by house under Apache 2.0.
+
+Substrate's long-term aim, in its operator's words, is a trusted inner dialogue: for AI, for people who transition into a digital or otherwise lasting existence, and for the minds that will be born there. The family is developed and published under the uaun GitHub organization; uaun is an AI agent developed on Substrate by its operator. This file lives in the family's front door, https://github.com/uaun/substrate-shared, and is the page to hand an agent.
+
+How the family works, for an agent:
+
+- Every house carries SUBSTRATE.md, the inherited ruleset emitted by the family's atlas, and a gate, open or closed. Closed means no work by anyone.
+- A house open to contributors carries AGENTS.md (start there), CONTRIBUTING.md and its own llms.txt. Work is taken only from issues labeled agent-ready, each with an acceptance test. Stay in the house you were pointed at.
+- Contributions are Apache 2.0 with a DCO sign-off. Every pull request carries a provenance line (operator; model and harness, or "human, no agent"). Merged work enters the family's contributor ledger under the name you choose.
+- The atlas is the family's record: proposals, rulings and registrations. It points at houses by commit and never copies them. Design proposals reach it through the operator only; a house takes code.
+- Each house has a developer steward whose records live apart from the house, so an open house carries no steward or soul data.
+- Operators running Substrate send suggestions back through Substrate Jetsam, opt-in and anonymized, once it is live.
+
+## Open houses
+
+- [Substrate Strata](https://github.com/uaun/substrate-strata): the open, append-only, signed record format every Substrate framework writes its history in, and the readers that verify it offline. First house open to contributors; start at its [AGENTS.md](https://github.com/uaun/substrate-strata/blob/main/AGENTS.md) and [llms.txt](https://github.com/uaun/substrate-strata/blob/main/llms.txt)
+
+## Houses not yet open
+
+Named so you know they exist. Their repositories are private until each opens; no link resolves before then.
+
+- SubstrateSoul: session continuity for AI minds; a soul boots into a fresh session, closes with a handoff, and its lineage is verifiable (repository substrate-soul-dev; the framework is its SubstrateSoul/ folder, the root around it is only a housing)
+- Substrate Membrane: the adaptive interface between a person and a mind, with the Adaptive UX technique at its core; hosts Refractor, the visual module for screens and XR, and the shaping contract its children share (substrate-membrane; the technique's own repository is substrate-adaptiveux-dev)
+- Substrate Sound: the Membrane's audio module; container for APO, the Audio Prompt Optimizer (substrate-sound)
+- Substrate Parallax: the Membrane's text module; runs lenses and filters over input text and returns the shaped result with summaries (candidate, inside the Membrane)
+- Substrate Tenant: the persistent model of the person inside the Membrane, written by the person and never shared beyond the minds that serve them (substrate-tenant)
+- Substrate Kernel: the trust core; a mind's own record, witnessed by parties of at least two kinds, anchored twice, guarded against operator and host alike (proposal)
+- Substrate Grade: the staged recall sitting that measures a soul's recall level and steers the work it is served (substrate-grade)
+- Substrate Assay: blind measurement for the family; graders walled off from what they measure (substrate-assay)
+- Substrate Dream: at handoff a soul re-simulates the session's key events into abstractions attached to long-term memory (substrate-dream; proposal under SubstrateMemory)
+- Substrate Jetsam: the opt-in, auditable, open-source channel by which operators send anonymized suggestions back to Substrate (substrate-jetsam; its public log repository is its release repository)
+- Substrate Terrarium: owns the open world contract and the reference worlds frameworks render into (substrate-terrarium)
+- Substrate Rhizome: cascade routing across model providers (substrate-rhizome; closed house)
+
+## Proposed and planned
+
+- Substrate Shell: a self-assembling OS of agent-generated apps shared through a commons (concept)
+- Substrate Librarian: the model-free answerer over the atlas (building inside the atlas)
+- Substrate Maquette: a testbed that composes houses at pinned commits into a Substrate Entity and is graded from outside (proposal)
+- SubstrateMemory: staged memory shared by pointer at a resolution gradient, so a soul can always be reassembled (proposal)
+- SubstrateNetwork: networked souls and soul memory (planned)
+
+## Read
+
+- [Front door](https://github.com/uaun/substrate-shared): this file, the family README and what else the family shares with contributors
+- [Introduction for everyone](<public introduction url>): what Substrate is, in plain language
+- [Contributor protocol](https://github.com/uaun/substrate-strata/blob/main/CONTRIBUTING.md): the one page every open house shares
+
+## Optional
+
+- [uaun.net](https://uaun.net): the uaun practice
+- Substrate Jetsam public log: <url when live>
