@@ -1,8 +1,8 @@
-"""The public log (J3, the atlas's TODO-195; JETSAM, The public log and the aggregation tools), run in
-`uaun/substrate-jetsam-log`, which vendors this package and calls these functions from its own
-`tools/`. Standard library only.
+"""The public log (J3, the atlas's TODO-195; JETSAM, The public log and the aggregation tools), run in the
+`jetsam/` folder of `uaun/substrate-shared` (AT.610), which vendors this package and calls these functions
+from its own `tools/`. Standard library only.
 
-The layout (the log repository's root):
+The layout (the log's root, that folder):
 
   inbox/<hash>.json                  a packet dropped and not yet ingested (by pull request now, the drop
                                      point at J4); inbox/refused/<hash>.json keeps each refused file

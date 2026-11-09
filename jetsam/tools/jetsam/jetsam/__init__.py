@@ -23,7 +23,7 @@ The tool, run in a recording house (--root, default the current folder; its jets
   jetsam suggest --kind K --target T TEXT [--confirm]   the one free field, scrubbed (JT.3)
   jetsam measure [--epoch E]  the dry epoch's figures: closes, events and refused per close, bytes, time
 
-The public log's verbs (J3), run in uaun/substrate-jetsam-log from its root (log.py says what each does):
+The public log's verbs (J3), run in the jetsam/ folder of uaun/substrate-shared (log.py says what each does):
 
   jetsam log-ingest [--route push|drop|handoff]   inbox/ to log/, refusals kept and counted
   jetsam log-aggregate                             views/ from log/ and schema/ alone
