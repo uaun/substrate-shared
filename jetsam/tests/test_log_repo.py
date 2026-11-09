@@ -76,6 +76,26 @@ def test_the_guard_refuses_what_only_the_ingest_writes(tmp_path):
     assert r.returncode == 1 and "REFUSED  log/LEDGER.jsonl" in r.stdout
 
 
+def test_the_guard_passes_the_branch_that_creates_the_log(tmp_path):
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    git = ["git", "-C", str(repo), "-c", "user.name=t", "-c", "user.email=t@example.invalid"]
+    subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
+    (repo / "LICENSE").write_text("x")
+    subprocess.run(git + ["add", "-A"], check=True)
+    subprocess.run(git + ["commit", "-q", "-m", "base"], check=True)
+    shutil.copytree(ROOT, repo / "jetsam", ignore=shutil.ignore_patterns(".git", "__pycache__", ".pytest_cache"))
+    subprocess.run(git + ["add", "-A"], check=True)
+    subprocess.run(git + ["commit", "-q", "-m", "the log"], check=True)
+    r = tool(repo / "jetsam", "guard", "HEAD~1")
+    assert r.returncode == 0 and "creates it" in r.stdout, r.stdout + r.stderr
+    with open(repo / "jetsam" / "log" / "LEDGER.jsonl", "a") as f:
+        f.write("{}\n")
+    subprocess.run(git + ["commit", "-q", "-am", "a hand-made ledger line"], check=True)
+    r = tool(repo / "jetsam", "guard", "HEAD~1")
+    assert r.returncode == 1 and "REFUSED  log/LEDGER.jsonl" in r.stdout
+
+
 def test_the_mirrors_and_the_schema():
     assert json.loads((ROOT / "schema" / "1.0.json").read_text()) == v.load_schema()
     for f in sorted((ROOT / "enums").glob("*/*/enums.yaml")):
