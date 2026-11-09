@@ -1,0 +1,4 @@
+# Append-only logs merge line-wise (IR-13); tools/check.sh refuses a duplicate in any of them.
+log/LEDGER.jsonl merge=union
+log/TOMBSTONES.jsonl merge=union
+log/BURN.jsonl merge=union

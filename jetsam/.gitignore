@@ -1,0 +1,16 @@
+# The never-store paths of the Substrate atlas's charter/never-store.yaml, so nothing on that list can be
+# staged here, and a recording house's local detail, which never leaves its house (JETSAM, rule 2).
+**/SubstrateSoulData/**
+**/RECALL*.md
+**/recall_spec*
+**/*.enc
+**/.prev/**
+**/SubstrateSoul.prev/**
+**/transcripts/**
+**/*.transcript.*
+**/.env
+**/*.pem
+**/*.key
+**/jetsam/local/
+__pycache__/
+.pytest_cache/

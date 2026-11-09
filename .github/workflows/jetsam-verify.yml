@@ -1,0 +1,33 @@
+name: jetsam verify
+
+# Substrate Jetsam's public log, in jetsam/: on every commit and pull request that touches it, the vendored
+# package, verify and the tests (jetsam/tools/check.sh). On a pull request the guard first refuses any change
+# to jetsam/log/, jetsam/views/ or jetsam/inbox/refused/, which only the ingest writes (JT.8).
+on:
+  push:
+    paths: ["jetsam/**", ".github/workflows/jetsam-*.yml"]
+  pull_request:
+    paths: ["jetsam/**", ".github/workflows/jetsam-*.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: jetsam
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 -m pip install --quiet pytest
+      - name: the guard (JT.8)
+        if: github.event_name == 'pull_request'
+        run: python3 -I -B tools/guard.py "origin/${{ github.base_ref }}"
+      - run: bash tools/check.sh
