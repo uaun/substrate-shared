@@ -26,7 +26,7 @@ Paths are relative to this folder, `jetsam/`.
 
 ```
 inbox/                                   packets sent by pull request and not yet ingested
-inbox/drop/                              packets the drop point committed, not yet ingested
+inbox/drop/                              packets the drop point committed, not yet ingested (made by its first commit)
 inbox/refused/<hash>.json                every refused file, kept so the refusal can be audited
 log/<framework>/<month>/<hash>.json      every ingested packet, byte for byte as sent; never edited, never deleted
 log/LEDGER.jsonl                         one line per ingest or refusal, with the day, never a finer time

@@ -107,11 +107,12 @@ def test_the_mirrors_and_the_schema():
 def test_a_packet_in_the_drop_folder_is_ingested_as_route_1(tmp_path):
     repo = copy_repo(tmp_path)
     raw = red_packet()
+    (repo / "inbox" / "drop").mkdir()          # the drop point's first commit makes the folder
     (repo / "inbox" / "drop" / jetsam.packet_name(raw)).write_bytes(raw)
     r = tool(repo, "ingest", "--day", "2026-11-09")
     assert "ingest: 1 ingested, 0 refused" in r.stdout, r.stdout + r.stderr
     row = json.loads((repo / "log" / "LEDGER.jsonl").read_text().splitlines()[-1])
-    assert row["route"] == "drop" and [p.name for p in (repo / "inbox" / "drop").iterdir()] == [".gitkeep"]
+    assert row["route"] == "drop" and list((repo / "inbox" / "drop").iterdir()) == []
 
 
 def test_the_guard_refuses_a_pull_request_into_the_drop_folder(tmp_path):
@@ -121,11 +122,12 @@ def test_the_guard_refuses_a_pull_request_into_the_drop_folder(tmp_path):
     subprocess.run(git + ["add", "-A"], check=True)
     subprocess.run(git + ["commit", "-q", "-m", "base"], check=True)
     raw = red_packet()
+    (repo / "inbox" / "drop").mkdir()
     (repo / "inbox" / "drop" / jetsam.packet_name(raw)).write_bytes(raw)
     subprocess.run(git + ["add", "-A"], check=True)
     subprocess.run(git + ["commit", "-q", "-m", "a packet claiming route 1"], check=True)
     r = tool(repo, "guard", "HEAD~1")
-    assert r.returncode == 1 and "REFUSED  inbox/drop/" in r.stdout, r.stdout
+    assert r.returncode == 1 and "only the drop point, route 1 (JT.11) writes here" in r.stdout, r.stdout
 
 
 def test_the_drop_point_refuses_what_the_ingest_would_and_commits_nothing_without_an_identity():

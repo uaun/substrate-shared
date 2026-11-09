@@ -295,7 +295,8 @@ def log_main(verb: str, rest: list) -> int:
     if verb == "log-guard":
         bad = lg.guard(pos)
         for p in bad:
-            print(f"REFUSED  {p}: only the automated ingest writes here (JT.8)")
+            who = "the drop point, route 1 (JT.11)" if p.startswith("inbox/drop/") else "the automated ingest (JT.8)"
+            print(f"REFUSED  {p}: only {who} writes here")
         return 1 if bad else 0
     if verb == "log-correlate":
         for line in lg.correlate(root, arg(rest, "--atlas") or "."):
