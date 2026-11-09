@@ -1,0 +1,27 @@
+# Never-store list (mirrors the family's contributor protocol). Nothing on it can be staged.
+# Credentials, keys, tokens
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+*.token
+*token*.json
+*credential*
+*secret*
+# Steward, soul and estate data never live in a public repository
+handoff/
+SOULS/
+estates/
+*.soul
+# Personal data
+*.vcf
+contacts*
+# Local cruft
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
