@@ -4,8 +4,10 @@ from its own `tools/`. Standard library only.
 
 The layout (the log's root, that folder):
 
-  inbox/<hash>.json                  a packet dropped and not yet ingested (by pull request now, the drop
-                                     point at J4); inbox/refused/<hash>.json keeps each refused file
+  inbox/<hash>.json                  a packet sent by pull request (route 2) and not yet ingested
+  inbox/drop/<hash>.json             a packet the drop point committed (route 1, J4); only its identity writes
+                                     here, so a pull request may not (the guard); inbox/refused/<hash>.json
+                                     keeps each refused file
   log/<framework>/<epoch>/<hash>.json  every ingested packet, byte-identical to what was sent; never
                                      edited, never deleted
   log/LEDGER.jsonl                   one line per ingest or refusal, the day and no finer time
@@ -29,7 +31,7 @@ The layout (the log's root, that folder):
                    exactly one ingested ledger line, and that the logs hold no duplicate; red on anything
   tombstone, burn  append a withdrawal or a burned pseudonym-epoch, each refused when it names nothing
   guard(paths)     the paths a pull request may not change (JT.8, AT.606): log/, views/ and inbox/refused/,
-                   which only the automated ingest writes
+                   which only the automated ingest writes, and inbox/drop/, which only the drop point writes
   correlate(root, atlas)  join each framework's releases to the atlas's alignment ledger, read locally
 """
 from __future__ import annotations
@@ -49,7 +51,7 @@ from . import validate as v
 K = 5                                   # JT.13 (AT.608)
 DEV = "dev"
 ROUTES = ("push", "drop", "handoff")    # own push (route 2), the drop point (route 1, J4), the handoff (route 3)
-PROTECTED = ("log/", "views/", "inbox/refused/")
+PROTECTED = ("log/", "views/", "inbox/refused/", "inbox/drop/")
 COUNTS = ("n", "opened")
 
 
@@ -154,14 +156,16 @@ def ingest(root, day: str | None = None, route: str = "push") -> Ingest:
     log, day, out = Log(root), day or today(), Ingest()
     if route not in ROUTES:
         raise ValueError(f"route {route!r} is not one of {', '.join(ROUTES)}")
-    try:
-        files = sorted(p for p in log.inbox.iterdir() if p.is_file() and p.name != ".gitkeep")
-    except OSError:
-        return out
+    files = []
+    for folder, how in ((log.inbox, route), (log.inbox / "drop", "drop")):  # the folder names the route (J4)
+        try:
+            files += [(p, how) for p in sorted(folder.iterdir()) if p.is_file() and p.name != ".gitkeep"]
+        except OSError:
+            pass
     seen = set(log.ingested())
     capped = {(r["framework"], r["epoch"], r["pseudonym"]) for r in log.ingested().values() if r.get("pseudonym")}
     burned = log.burned()
-    for p in files:
+    for p, how in files:
         raw = p.read_bytes()
         h = core.content_hash(raw)
         try:
@@ -187,7 +191,7 @@ def ingest(root, day: str | None = None, route: str = "push") -> Ingest:
             out.refused.append((h, checks))
             continue
         row = {"hash": h, "state": "ingested", "framework": fw, "release": rel, "epoch": value["epoch"],
-               "pseudonym": value["pseudonym"], "classes": value["classes"], "route": route, "day": day}
+               "pseudonym": value["pseudonym"], "classes": value["classes"], "route": how, "day": day}
         dest = log.packet_path(row)
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_bytes(raw)
@@ -396,7 +400,8 @@ def burn(root, framework: str, epoch: str, pseudonym: str, reason: str, day: str
 
 
 def guard(paths: list[str]) -> list[str]:
-    """The changed paths a pull request may not carry (JT.8): only the automated ingest writes these."""
+    """The changed paths a pull request may not carry (JT.8): only the automated ingest writes these, and only
+    the drop point writes inbox/drop/ (J4), so a pull request cannot claim route 1."""
     return [p for p in paths if any(p == x.rstrip("/") or p.startswith(x) for x in PROTECTED)]
 
 

@@ -37,8 +37,8 @@ from .house import SENDING, House
 BUCKETS = ["1", "2", "3-4", "5-8", "9-16", "17-32", "33+"]
 SEND_SENTENCE = ("This packet is published verbatim to a public log. It cannot be withdrawn from the "
                  "log's history, only removed from its views. Send it?")
-NO_ROUTE = ("no send question: no route can send a packet yet (the drop point and own push arrive at "
-            "J4, the atlas's TODO-196); it stays in jetsam/outbox/, which travels with the house")
+NO_ROUTE = ("no send question: this house's route is handoff (route 3), so the packet travels with the house "
+            "in jetsam/outbox/ and is sent from a machine with the tool (`jetsam send --route push --clone DIR`)")
 
 
 def bucket(n: int) -> str:

@@ -6,12 +6,13 @@ import sys
 from pathlib import Path
 
 from . import attribution, canonical, enums as enumfiles, validate as v
-from . import digest as dg, house as hs, scrub as scrubber, vendor as vd
+from . import digest as dg, house as hs, routes as rt, scrub as scrubber, vendor as vd
 from .record import epoch as current_epoch
 
 HERE = Path(__file__).resolve().parent
 FLAGS = {"--enums", "--releases", "--digests", "--patterns", "--root", "--epoch", "--kind", "--target",
-         "--route", "--by", "--reason", "--framework", "--pseudonym", "--atlas", "--day"}
+         "--route", "--by", "--reason", "--framework", "--pseudonym", "--atlas", "--day", "--clone", "--name",
+         "--email", "--receipt", "--port"}
 HOUSE_VERBS = ("status", "disclosure", "consent", "revoke", "pseudonym", "record", "show", "close", "send",
                "suggest", "measure")
 LOG_VERBS = ("log-ingest", "log-aggregate", "log-verify", "log-tombstone", "log-burn", "log-guard", "log-correlate")
@@ -163,6 +164,8 @@ def house_main(verb: str, rest: list) -> int:
         sent = h.sent_hashes()
         for p, j in h.outbox_packets():
             print(f"  outbox {p.stem[:12]}... {j.get('epoch')} {p.stat().st_size} bytes{' (sent)' if p.stem in sent else ''}")
+        if rt.refused_sends(h):
+            print(f"  sends refused by the drop point: {rt.refused_sends(h)} (jetsam/local/sends-refused.jsonl)")
         vroot = vd.vendored_root(HERE)
         print("tool: " + (("vendored from " + json.loads((vroot / vd.MANIFEST).read_text())["commit"][:12]
                            + (", matches its manifest" if not drift() else ", DIFFERS: " + "; ".join(drift())))
@@ -222,9 +225,7 @@ def house_main(verb: str, rest: list) -> int:
             print("nothing unsent in jetsam/outbox/; `jetsam show --epoch YYYY-MM` previews an epoch without writing it")
         return 0
     if verb == "send":
-        print("NOT SENT: no route can send a packet yet; the drop point and own push arrive at J4 (the atlas's "
-              "TODO-196). The packet stays in jetsam/outbox/, which travels with the house.")
-        return 3
+        return send(h, rest, pos)
     if verb == "suggest":
         if "suggestion" not in h.consent():
             print(f"jetsam: the suggestion class is not on in this house, so nothing was recorded; {REVIEW}")
@@ -303,9 +304,72 @@ def log_main(verb: str, rest: list) -> int:
     return 2
 
 
+def send(h: hs.House, rest: list, pos: list) -> int:
+    """The send act (J4): the operator's yes, carried out by one route; see routes.py."""
+    day = arg(rest, "--day") or rt.today()
+    which = pos[0] if pos else None
+    route = arg(rest, "--route") or h.route
+    if route not in hs.ROUTES:
+        print(f"jetsam send: the route {route!r} is not one of {', '.join(hs.ROUTES)}")
+        return 2
+    if arg(rest, "--receipt"):
+        hit = [p for p, _ in rt.unsent(h, which)] if which else []
+        if len(hit) != 1:
+            print("jetsam send HASH --receipt TEXT records one unsent packet as sent; name it by its hash")
+            return 2
+        rt.record_sent(h, hit[0].stem, day, route if route != "handoff" else "push", arg(rest, "--receipt"))
+        print(f"recorded {hit[0].stem[:12]}... as sent by route {route if route != 'handoff' else 'push'}")
+        return 0
+    if route == "handoff":
+        print(rt.HANDOFF)
+        return 3
+    todo = rt.unsent(h, which)
+    if not todo:
+        print("nothing unsent in jetsam/outbox/" + (f" matching {which}" if which else ""))
+        return 0
+    if route == "drop" and not h.raw.get("drop"):
+        print("NOT SENT: " + rt.NO_DROP)
+        return 3
+    if route == "push" and not arg(rest, "--clone"):
+        print("jetsam send --route push needs --clone DIR, a clean checkout of uaun/substrate-shared or your fork of it")
+        return 2
+    jitter = bool(h.raw.get("jitter")) or "--jitter" in rest
+    rc = 0
+    for p, raw in todo:
+        if jitter:
+            hold = rt.hold_day(h, p.stem, day)
+            if day < hold:
+                print(f"held: {p.stem[:12]}... waits for {hold} (send-day jitter, JT.11); nothing sent")
+                continue
+        if route == "drop":
+            state, what = rt.send_drop(h.raw["drop"], raw)
+            if state == "accepted":
+                rt.record_sent(h, p.stem, day, "drop", what)
+                print(f"sent {p.stem[:12]}... by the drop point: {what}")
+            elif state == "refused":
+                rt.record_refused(h, p.stem, day, "drop", what)
+                print(f"REFUSED by the drop point: {p.stem[:12]}... ({', '.join(what)}); counted, still unsent")
+                rc = 1
+            else:
+                print(f"NOT SENT: {p.stem[:12]}...: {what}; still unsent")
+                rc = 1
+            continue
+        try:
+            branch, sha = rt.send_push(arg(rest, "--clone"), raw, day, arg(rest, "--name"), arg(rest, "--email"))
+        except (ValueError, OSError, __import__("subprocess").CalledProcessError) as e:
+            print(f"NOT SENT: {p.stem[:12]}...: {e}")
+            rc = 1
+            continue
+        print(f"committed {sha[:12]} on branch {branch} in {arg(rest, '--clone')}: one file, jetsam/inbox/{p.stem}.json, "
+              f"dated {day}. Push it from the account you choose and open a pull request into uaun/substrate-shared "
+              f"(git -C {arg(rest, '--clone')} push origin {branch}); then record it: "
+              f"jetsam send {p.stem[:12]} --route push --receipt <the pull request's URL>")
+    return rc
+
+
 def main(argv) -> int:
     args = argv[1:]
-    verbs = ("validate", "enums", "canonical", "vendor", "vendor-check") + HOUSE_VERBS + LOG_VERBS
+    verbs = ("validate", "enums", "canonical", "vendor", "vendor-check", "carry-check", "drop-serve") + HOUSE_VERBS + LOG_VERBS
     if not args or args[0] not in verbs:
         print(__import__("jetsam").__doc__)
         return 2
@@ -327,6 +391,21 @@ def main(argv) -> int:
             return 1
         print(f"vendored {len(m['files'])} file(s) from {m['commit'][:12]} into {paths[0]} "
               + (f"(framework {m['framework']})" if m["framework"] else "(package only)"))
+        return 0
+    if verb == "carry-check":
+        if not paths:
+            print("jetsam carry-check ZIP")
+            return 2
+        n, problems = rt.carry_check(paths[0])
+        for line in problems:
+            print("REFUSED: " + line)
+        if not problems:
+            print(f"the zip carries {n} packet file(s) under jetsam/outbox/ and nothing of jetsam/local/")
+        return 1 if problems else 0
+    if verb == "drop-serve":
+        from . import drop
+        port = int(arg(rest, "--port") or 8737)
+        drop.serve(port)
         return 0
     if verb == "vendor-check":
         diffs = vd.check(paths[0] if paths else HERE.parent)
